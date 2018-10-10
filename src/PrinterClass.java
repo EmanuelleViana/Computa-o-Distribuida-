@@ -1,3 +1,6 @@
+import java.io.*;
+import java.net.*;
+
 public class PrinterClass {
 
     private static void initProgram(String[]args){
@@ -5,9 +8,7 @@ public class PrinterClass {
            if(args[0].equalsIgnoreCase("server")){
                initServer();
            }else if(args[0].equalsIgnoreCase("client")){
-                Client client = new Client("127.0.0.1",8081);
-                Node node = new Node();
-                node.connectClient(client);
+
            }else{
                System.out.println("Nenhuma parâmetro válido foi digitado");
            }
@@ -15,7 +16,23 @@ public class PrinterClass {
     }
 
     private static  void initServer(){
-        Server server = new Server();
+        ServerSocket serverSocket = null;
+        Server server;
+        try {
+            serverSocket = new ServerSocket(8081);
+            while (true){
+                server = new Server(serverSocket.accept());
+            }
+        }catch (IOException e){
+         System.out.println("Server indisponivél");
+        }finally {
+            try {
+             if(serverSocket != null)
+                 serverSocket.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
 
