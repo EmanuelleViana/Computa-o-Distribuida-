@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class PrinterClass {
 
@@ -8,7 +9,7 @@ public class PrinterClass {
            if(args[0].equalsIgnoreCase("server")){
                initServer();
            }else if(args[0].equalsIgnoreCase("client")){
-
+                initClient();
            }else{
                System.out.println("Nenhuma parâmetro válido foi digitado");
            }
@@ -36,7 +37,9 @@ public class PrinterClass {
     }
 
 
-
+    private static void initClient(){
+        Client client = new Client("127.0.0.1",8081);
+    }
 
     public static void main(String[]args){
 
